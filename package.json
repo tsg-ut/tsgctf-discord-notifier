@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@types/node-persist": "^3.1.2",
+    "axios": "^0.21.4",
+    "dotenv": "^10.0.0",
+    "lodash": "^4.17.21",
+    "node-persist": "^3.1.0",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.175"
+  }
+}
