@@ -49,7 +49,7 @@ const checkTeamSize = async () => {
 
 	if (prevAchievement > previousTeamCount) {
 		const {data: discordResult} = await axios.post(DISCORD_RANDOM_WEBHOOK_URL!, {
-			content: `We hit ${prevAchievement} registrants! https://score.ctf.tsg.ne.jp/scoreboard`,
+			content: `We hit ${prevAchievement} registrants! <https://score.ctf.tsg.ne.jp/scoreboard>`,
 		});
 		console.log(discordResult);
 	}
