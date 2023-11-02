@@ -26,17 +26,6 @@ const mailgun = Mailgun({apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com'});
 	console.log(`Team id: ${teamId}`);
 	console.log('');
 
-	await new Promise<void>((resolve) => {
-		rl.question('Is this ok? [yN] ', (answer) => {
-			if (answer.toLowerCase() === 'y') {
-				rl.close();
-				resolve();
-			} else {
-				process.exit();
-			}
-		});
-	});
-
 	console.log('Getting Team configuration...');
 
 	const emails: string[] = ['pr-log@mail-hook.tsg.ne.jp'];
@@ -50,7 +39,7 @@ const mailgun = Mailgun({apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com'});
 	const [, token] = data.match(/'csrfNonce'\s*:\s*"(.+?)"/);
 	console.log(`Got CSRF token: ${token}`);
 
-	console.log('Posting notification...');
+	console.log('Getting team members...');
 	const {data: result} = await axios.get(`${CTFD_HOST}/api/v1/teams/${teamId}/members`, {
 		headers: {
 			Cookie: `session=${CTFD_SESSION}`,
@@ -72,10 +61,7 @@ const mailgun = Mailgun({apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com'});
 		emails.push(email);
 	}
 
-	console.log(emails);
-
 	const teamPassword = nanoid(16);
-	console.log({teamPassword});
 
 	const {data: patchResult} = await axios.patch(`${CTFD_HOST}/api/v1/teams/${teamId}`, JSON.stringify({
 		password: teamPassword,
@@ -88,6 +74,19 @@ const mailgun = Mailgun({apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com'});
 	});
 
 	const teamName = get(patchResult, ['data', 'name']);
+
+	console.log({teamName, teamPassword, emails});
+
+	await new Promise<void>((resolve) => {
+		rl.question('Is this ok? [yN] ', (answer) => {
+			if (answer.toLowerCase() === 'y') {
+				rl.close();
+				resolve();
+			} else {
+				process.exit();
+			}
+		});
+	});
 
 	const content = stripIndent`
 		Hi team ${teamName} <br>
@@ -102,7 +101,7 @@ const mailgun = Mailgun({apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com'});
 			from: 'TSG <admin@tsg.ne.jp>',
 			to: 'info@tsg.ne.jp',
 			bcc: emails,
-			subject: 'TSG CTF 2021 team password reset',
+			subject: 'TSG CTF 2023 team password reset',
 			text: content,
 			html: content,
 		}, (error, body) => {
