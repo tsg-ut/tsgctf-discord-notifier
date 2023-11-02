@@ -98,7 +98,7 @@ const mailgun = Mailgun({apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com'});
 
 	const mailResult = await new Promise((resolve) => {
 		mailgun.messages().send({
-			from: 'TSG <admin@tsg.ne.jp>',
+			from: 'TSG CTF 2023 <tsgctf@hakatashi.com>',
 			to: 'info@tsg.ne.jp',
 			bcc: emails,
 			subject: 'TSG CTF 2023 team password reset',
