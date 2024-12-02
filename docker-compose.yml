@@ -1,5 +1,5 @@
 services:
-  app:
+  first-blood:
     build:
       context: .
       dockerfile: firstblood.Dockerfile
