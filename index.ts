@@ -106,7 +106,7 @@ const checkFirstBlood = async () => {
 		console.log({challengeDatum});
 
 		const {data: discordResult} = await axios.post(DISCORD_GENERAL_WEBHOOK_URL!, {
-			content: `Team **${firstBloodSolve.name}** first-blooded **${challengeDatum.name}**!!! Congrats!`,
+			content: `Team **${firstBloodSolve.name}** first-blooded🩸 **${challengeDatum.name}**!!! Congrats!`,
 		});
 		console.log(discordResult);
 	}
@@ -116,6 +116,6 @@ const checkFirstBlood = async () => {
 
 storage.init({dir: '.cache'}).then(() => {
 	console.log('Started');
-	setInterval(checkTeamSize, 1000 * 60);
+	// setInterval(checkTeamSize, 1000 * 60);
 	setInterval(checkFirstBlood, 1000 * 60);
 });
