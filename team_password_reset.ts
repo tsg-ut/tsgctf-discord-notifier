@@ -3,8 +3,8 @@ import axios from 'axios';
 import readline from 'readline';
 import get from 'lodash/get';
 import Mailgun from 'mailgun-js';
-import {stripIndent} from 'common-tags';
-import {nanoid} from 'nanoid';
+import { stripIndent } from 'common-tags';
+import { nanoid } from 'nanoid';
 
 dotenv.config();
 
@@ -13,9 +13,9 @@ const rl = readline.createInterface({
 	output: process.stdout
 });
 
-const {CTFD_HOST, CTFD_SESSION, MAILGUN_API_KEY} = process.env;
+const { CTFD_HOST, CTFD_SESSION, MAILGUN_API_KEY } = process.env;
 
-const mailgun = Mailgun({apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com'});
+const mailgun = Mailgun({ apiKey: MAILGUN_API_KEY!, domain: 'tsg.ne.jp' });
 
 (async () => {
 	const teamId = await new Promise((resolve) => {
@@ -31,7 +31,7 @@ const mailgun = Mailgun({apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com'});
 	const emails: string[] = ['pr-log@mail-hook.tsg.ne.jp'];
 
 	console.log('Getting CSRF token...');
-	const {data} = await axios.get(`${CTFD_HOST}/admin/notifications`, {
+	const { data } = await axios.get(`${CTFD_HOST}/admin/notifications`, {
 		headers: {
 			Cookie: `session=${CTFD_SESSION}`,
 		},
@@ -40,7 +40,7 @@ const mailgun = Mailgun({apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com'});
 	console.log(`Got CSRF token: ${token}`);
 
 	console.log('Getting team members...');
-	const {data: result} = await axios.get(`${CTFD_HOST}/api/v1/teams/${teamId}/members`, {
+	const { data: result } = await axios.get(`${CTFD_HOST}/api/v1/teams/${teamId}/members`, {
 		headers: {
 			Cookie: `session=${CTFD_SESSION}`,
 			'CSRF-Token': token,
@@ -51,7 +51,7 @@ const mailgun = Mailgun({apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com'});
 	console.log('CTFd team members:', members);
 
 	for (const member of members) {
-		const {data: result} = await axios.get(`${CTFD_HOST}/api/v1/users/${member}`, {
+		const { data: result } = await axios.get(`${CTFD_HOST}/api/v1/users/${member}`, {
 			headers: {
 				Cookie: `session=${CTFD_SESSION}`,
 				'CSRF-Token': token,
@@ -63,7 +63,7 @@ const mailgun = Mailgun({apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com'});
 
 	const teamPassword = nanoid(16);
 
-	const {data: patchResult} = await axios.patch(`${CTFD_HOST}/api/v1/teams/${teamId}`, JSON.stringify({
+	const { data: patchResult } = await axios.patch(`${CTFD_HOST}/api/v1/teams/${teamId}`, JSON.stringify({
 		password: teamPassword,
 	}), {
 		headers: {
@@ -75,7 +75,7 @@ const mailgun = Mailgun({apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com'});
 
 	const teamName = get(patchResult, ['data', 'name']);
 
-	console.log({teamName, teamPassword, emails});
+	console.log({ teamName, teamPassword, emails });
 
 	await new Promise<void>((resolve) => {
 		rl.question('Is this ok? [yN] ', (answer) => {
@@ -98,10 +98,10 @@ const mailgun = Mailgun({apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com'});
 
 	const mailResult = await new Promise((resolve) => {
 		mailgun.messages().send({
-			from: 'TSG CTF 2023 <tsgctf@hakatashi.com>',
+			from: 'TSG CTF 2024 <tsgctf@tsg.ne.jp>',
 			to: 'info@tsg.ne.jp',
 			bcc: emails,
-			subject: 'TSG CTF 2023 team password reset',
+			subject: 'TSG CTF 2024 team password reset',
 			text: content,
 			html: content,
 		}, (error, body) => {

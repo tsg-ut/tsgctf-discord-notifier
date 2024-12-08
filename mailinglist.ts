@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import readline from 'readline';
 import Mailgun from 'mailgun-js';
-import {stripIndent} from 'common-tags';
+import { stripIndent } from 'common-tags';
 
 dotenv.config();
 
@@ -10,9 +10,9 @@ const rl = readline.createInterface({
 	output: process.stdout
 });
 
-const {MAILGUN_API_KEY} = process.env;
+const { MAILGUN_API_KEY } = process.env;
 
-const mailgun = Mailgun({apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com'});
+const mailgun = Mailgun({ apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com' });
 
 (async () => {
 	const text = stripIndent`
@@ -90,7 +90,7 @@ const mailgun = Mailgun({apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com'});
 		mailgun.messages().send({
 			from: 'TSG <admin@tsg.ne.jp>',
 			to: 'tsgctf-announcements@hakatashi.com',
-			subject: 'Invitation to TSG CTF 2023',
+			subject: 'Invitation to TSG CTF 2024',
 			text,
 			html,
 		}, (error, body) => {

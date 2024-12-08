@@ -15,7 +15,7 @@ const rl = readline.createInterface({
 
 const { CTFD_HOST, CTFD_SESSION, MAILGUN_API_KEY } = process.env;
 
-const mailgun = Mailgun({ apiKey: MAILGUN_API_KEY!, domain: "hakatashi.com" });
+const mailgun = Mailgun({ apiKey: MAILGUN_API_KEY!, domain: "tsg.ne.jp" });
 
 (async () => {
   const userId = await new Promise((resolve) => {
@@ -40,27 +40,27 @@ const mailgun = Mailgun({ apiKey: MAILGUN_API_KEY!, domain: "hakatashi.com" });
   console.log(`Got CSRF token: ${token}`);
 
   /* 
-	console.log('Getting team members...');
-	const {data: result} = await axios.get(`${CTFD_HOST}/api/v1/teams/${userId}/members`, {
-		headers: {
-			Cookie: `session=${CTFD_SESSION}`,
-			'CSRF-Token': token,
-		},
-	}); */
+  console.log('Getting team members...');
+  const {data: result} = await axios.get(`${CTFD_HOST}/api/v1/teams/${userId}/members`, {
+    headers: {
+      Cookie: `session=${CTFD_SESSION}`,
+      'CSRF-Token': token,
+    },
+  }); */
 
   // const members = get(result, 'data', []);
   // console.log('CTFd team members:', members);
 
   /* for (const member of members) {
-		const {data: result} = await axios.get(`${CTFD_HOST}/api/v1/users/${member}`, {
-			headers: {
-				Cookie: `session=${CTFD_SESSION}`,
-				'CSRF-Token': token,
-			},
-		});
-		const email = get(result, ['data', 'email']);
-		emails.push(email);
-	} */
+    const {data: result} = await axios.get(`${CTFD_HOST}/api/v1/users/${member}`, {
+      headers: {
+        Cookie: `session=${CTFD_SESSION}`,
+        'CSRF-Token': token,
+      },
+    });
+    const email = get(result, ['data', 'email']);
+    emails.push(email);
+  } */
   const { data: result } = await axios.get(
     `${CTFD_HOST}/api/v1/users/${userId}`,
     {
@@ -115,10 +115,10 @@ const mailgun = Mailgun({ apiKey: MAILGUN_API_KEY!, domain: "hakatashi.com" });
   const mailResult = await new Promise((resolve) => {
     mailgun.messages().send(
       {
-        from: "TSG CTF 2023 <tsgctf@hakatashi.com>",
+        from: "TSG CTF 2024 <tsgctf@tsg.ne.jp>",
         to: "info@tsg.ne.jp",
         bcc: emails,
-        subject: "TSG CTF 2023 user password reset",
+        subject: "TSG CTF 2024 user password reset",
         text: content,
         html: content,
       },
