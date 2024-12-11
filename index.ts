@@ -94,12 +94,26 @@ const checkFirstBlood = async () => {
 			},
 		});
 
-		if (solves.length === 0) {
-			console.error(`[first-blood] Challenge ${challenge} has no solves!`);
+		const {data: teamsResult} = await axios.get(`${CTFD_HOST}/api/v1/teams`, {
+			headers: {
+				Cookie: `session=${CTFD_SESSION}`,
+				'CSRF-Token': token,
+			},
+		});
+
+		const teams = get(teamsResult, ['data'], []);
+
+		const visibleSolves = solves.filter(solve => {
+			const team = teams.find(team => team.name === solve.name);
+			return team && !team.hidden;
+		});
+	
+		if (visibleSolves.length === 0) {
+			console.error(`[first-blood] Challenge ${challenge} has no visible solves!`);
 			continue;
 		}
 
-		const firstBloodSolve = sortBy(solves, ({date}) => new Date(date).getTime())[0]!;
+		const firstBloodSolve = sortBy(visibleSolves, ({date}) => new Date(date).getTime())[0]!;
 		console.log({firstBloodSolve});
 
 		const challengeDatum = challenges.find(({id}) => id === challenge)!;
