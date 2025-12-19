@@ -12,7 +12,7 @@ const rl = readline.createInterface({
 
 const { MAILGUN_API_KEY } = process.env;
 
-const mailgun = Mailgun({ apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com' });
+const mailgun = Mailgun({ apiKey: MAILGUN_API_KEY!, domain: 'tsg.ne.jp' });
 
 (async () => {
 	const text = stripIndent`
@@ -20,9 +20,9 @@ const mailgun = Mailgun({ apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com' });
 
 		Hello hackers. After two years of silence, we are back. If you enjoyed the previous TSG CTF, this is good news!
 
-		We are pleased to announce that TSG CTF 2023 will be held this weekend from 07:00 on November 4th to 07:00 on November 5th (UTC). This time as well, we are putting a lot of effort into reviews and making sure that challenges are published in the best possible way.
+		We are pleased to announce that TSG CTF 2025 will be held this weekend from 07:00 on December 20th to 07:00 on December 21st (UTC). This time as well, we are putting a lot of effort into reviews and making sure that challenges are published in the best possible way.
 
-		Also, it's worth mentioning that the top hackers will be rewarded by dollars. Sponsored by Flatt Security, Inc., the prizes are as follows: 1st place receives 1,000 USD, 2nd place 500 USD, and 3rd place 200 USD.
+		Also, it's worth mentioning that the top hackers will be rewarded by dollars. Sponsored by GMO Flatt Security, Inc., the prizes are as follows: 1st place receives 1,000 USD, 2nd place 500 USD, and 3rd place 200 USD.
 
 		The scoreboard is ready. Register now!
 		https://score.ctf.tsg.ne.jp/
@@ -35,7 +35,7 @@ const mailgun = Mailgun({ apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com' });
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 		<tr>
 		<td style="text-align: center;">
-		<img src="https://score.ctf.tsg.ne.jp/themes/tsgctf/static/ogimage.jpg" alt="TSG CTF 2023" style="max-width: 600px;">
+		<img src="https://score.ctf.tsg.ne.jp/themes/tsgctf/static/ogimage.jpg" alt="TSG CTF 2025" style="max-width: 600px;">
 		</td>
 		</tr>
 		</table>
@@ -49,11 +49,11 @@ const mailgun = Mailgun({ apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com' });
 		</p>
 
 		<p>
-		We are pleased to announce that TSG CTF 2023 will be held this weekend from 07:00 on November 4th to 07:00 on November 5th (UTC). This time as well, we are putting a lot of effort into reviews and making sure that challenges are published in the best possible way.
+		We are pleased to announce that TSG CTF 2025 will be held this weekend from 07:00 on December 20th to 07:00 on December 21st (UTC). This time as well, we are putting a lot of effort into reviews and making sure that challenges are published in the best possible way.
 		</p>
 
 		<p>
-		Also, it's worth mentioning that the top hackers will be rewarded by dollars. Sponsored by Flatt Security, Inc., the prizes are as follows: 1st place receives 1,000 USD, 2nd place 500 USD, and 3rd place 200 USD.
+		Also, it's worth mentioning that the top hackers will be rewarded by dollars. Sponsored by GMO Flatt Security, Inc., the prizes are as follows: 1st place receives 1,000 USD, 2nd place 500 USD, and 3rd place 200 USD.
 		</p>
 
 		<p>
