@@ -115,10 +115,10 @@ const mailgun = Mailgun({ apiKey: MAILGUN_API_KEY!, domain: "tsg.ne.jp" });
   const mailResult = await new Promise((resolve) => {
     mailgun.messages().send(
       {
-        from: "TSG CTF 2024 <tsgctf@tsg.ne.jp>",
+        from: "TSG CTF 2025 <tsgctf@tsg.ne.jp>",
         to: "info@tsg.ne.jp",
         bcc: emails,
-        subject: "TSG CTF 2024 user password reset",
+        subject: "TSG CTF 2025 user password reset",
         text: content,
         html: content,
       },
