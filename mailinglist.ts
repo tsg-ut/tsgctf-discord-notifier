@@ -90,7 +90,7 @@ const mailgun = Mailgun({ apiKey: MAILGUN_API_KEY!, domain: 'hakatashi.com' });
 		mailgun.messages().send({
 			from: 'TSG <admin@tsg.ne.jp>',
 			to: 'tsgctf-announcements@hakatashi.com',
-			subject: 'Invitation to TSG CTF 2024',
+			subject: 'Invitation to TSG CTF 2025',
 			text,
 			html,
 		}, (error, body) => {
